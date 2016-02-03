@@ -44,6 +44,7 @@ var $$ = (function(){
       return this;
     },
     hasClass : function(className) {
+      // http://jaketrent.com/post/addremove-classes-raw-javascript/
       var elems = this.collection;
 
       for (var i = 0; i < elems.length; i++) {
@@ -57,6 +58,7 @@ var $$ = (function(){
       }
     },
     addClass : function(classNames) {
+      // http://jaketrent.com/post/addremove-classes-raw-javascript/
       var elems = this.collection;
       var that = this;
 
@@ -84,6 +86,7 @@ var $$ = (function(){
       return this;
     },
     removeClass: function(classNames) {
+      // http://jaketrent.com/post/addremove-classes-raw-javascript/
       var elems = this.collection;
       var that = this;
 
