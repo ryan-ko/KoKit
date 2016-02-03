@@ -7,6 +7,23 @@ var $$ = (function(){
     var domArray = document.querySelectorAll(elems);
     this.collection = domArray[1] ? Array.prototype.slice.call(domArray) : [domArray];
     return this;
+  },
+
+  Util = {
+    getDomIdentifier: function(el) {
+      var domIdentifier = '';
+      if (el.id === '') {
+        var classNameLabelArray = el.className.split(' ');
+        for (var i = 0; i < classNameLabelArray.length; i++) {
+          domIdentifier += '.' + classNameLabelArray[i] + '';
+        }
+      } else {
+        var id = el.id;
+        domIdentifier = '#' + id;
+      }
+
+      return domIdentifier;
+    }
   };
 
   $$.fn = KoKit.prototype = {
@@ -45,10 +62,9 @@ var $$ = (function(){
 
       // Loop thru each DOM elements
       for (var i = 0; i < elems.length; i++) {
-
         var el = elems[i][0];
         // Check if classList is available
-        if (el.classList) {
+        if (!el.classList) {
 
           // Create an array of classList
           var classNamesArray = classNames.split(' ');
@@ -59,7 +75,10 @@ var $$ = (function(){
 
           // If doesn't support classList, just append as string
         } else {
-          el.className += " " + classNames;
+          var target = $$(Util.getDomIdentifier(el));
+          if (!that.hasClass.call(target, classNames)) {
+            el.className += " " + classNames;
+          }
         }
       }
       return this;
