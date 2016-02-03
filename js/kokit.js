@@ -62,9 +62,9 @@ var $$ = (function(){
 
       // Loop thru each DOM elements
       for (var i = 0; i < elems.length; i++) {
-        var el = elems[i][0];
+        var el = this.collection.length > 1 ? elems[i] : elems[i][0];
         // Check if classList is available
-        if (!el.classList) {
+        if (el.classList) {
 
           // Create an array of classList
           var classNamesArray = classNames.split(' ');
@@ -78,6 +78,34 @@ var $$ = (function(){
           var target = $$(Util.getDomIdentifier(el));
           if (!that.hasClass.call(target, classNames)) {
             el.className += " " + classNames;
+          }
+        }
+      }
+      return this;
+    },
+    removeClass: function(classNames) {
+      var elems = this.collection;
+      var that = this;
+
+      // Loop thru each DOM elements
+      for (var i = 0; i < elems.length; i++) {
+        var el = this.collection.length > 1 ? elems[i] : elems[i][0];
+        // Check if classList is available
+        if (el.classList) {
+
+          // Create an array of classList
+          var classNamesArray = classNames.split(' ');
+          // For each class, add it via classList
+          for (var j = 0; j < classNamesArray.length; j++) {
+            el.classList.remove(classNamesArray[j]);
+          }
+
+          // If doesn't support classList, just append as string
+        } else {
+          var target = $$(Util.getDomIdentifier(el));
+          if (!that.hasClass.call(target, classNames)) {
+            var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+            el.className = el.className.replace(reg, ' ');
           }
         }
       }
