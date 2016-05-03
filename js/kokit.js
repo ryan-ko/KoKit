@@ -86,11 +86,12 @@ var $ = (function(){
 				i,
 				classNamesArray,
 				j,
-				target;
+				target,
+				el;
 
 			// Loop thru each DOM elements
 			for (i = 0; i < elems.length; i ++) {
-				var el = this.collection.length > 1 ? elems[i] : elems[i][0];
+				el = this.collection.length > 1 ? elems[i] : elems[i][0];
 				// Check if classList is available
 				if (el.classList) {
 
@@ -160,6 +161,7 @@ var $ = (function(){
 				}
 			}
 		},
+		// Same as jQuery
 		html: function(content) {
 			var elems = this.collection,
 				i,
@@ -174,7 +176,8 @@ var $ = (function(){
 				}
 			}
 		},
-		hide: function(content) {
+		// Same as jQuery
+		hide: function() {
 			var elems = this.collection,
 				i,
 				elemsCount = elems.length;
@@ -187,7 +190,8 @@ var $ = (function(){
 				}
 			}
 		},
-		show: function(content) {
+		// Same as jQuery
+		show: function() {
 			var elems = this.collection,
 				i,
 				elemsCount = elems.length;
