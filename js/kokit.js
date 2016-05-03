@@ -152,13 +152,25 @@ var $ = (function(){
 				i,
 				elemsCount = elems.length;
 
-			console.log('elems', elems);
-
 			for (i = 0; i < elemsCount; i++) {
 				if (elemsCount === 1) {
 					elems[i][0].scrollTop = yScrollValue;
 				} else if (elemsCount > 1) {
 					elems[i].scrollTop = yScrollValue;
+				}
+			}
+		},
+		html: function(content) {
+			var elems = this.collection,
+				i,
+				elemsCount = elems.length;
+
+			for (i = 0; i < elemsCount; i++) {
+				if (elemsCount === 1) {
+					console.log('test', elems[i]);
+					elems[i][0].innerHTML = content;
+				} else if (elemsCount > 1) {
+					elems[i].innerHTML = content;
 				}
 			}
 		}
