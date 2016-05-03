@@ -173,6 +173,32 @@ var $ = (function(){
 					elems[i].innerHTML = content;
 				}
 			}
+		},
+		hide: function(content) {
+			var elems = this.collection,
+				i,
+				elemsCount = elems.length;
+
+			for (i = 0; i < elemsCount; i++) {
+				if (elemsCount === 1) {
+					elems[i][0].style.display = 'none';
+				} else if (elemsCount > 1) {
+					elems[i].style.display = 'none';
+				}
+			}
+		},
+		show: function(content) {
+			var elems = this.collection,
+				i,
+				elemsCount = elems.length;
+
+			for (i = 0; i < elemsCount; i++) {
+				if (elemsCount === 1) {
+					elems[i][0].style.display = 'block';
+				} else if (elemsCount > 1) {
+					elems[i].style.display = 'block';
+				}
+			}
 		}
 	};
 
