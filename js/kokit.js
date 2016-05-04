@@ -1,5 +1,11 @@
 'use strict';
 
+/**
+* KoKit
+* Trying to imitate some jQuery goodies so I don't need to use jQuery
+* Pure for fun and practice
+* @author ryan.ko@akqa.com
+*/
 var $ = (function(){
 	var $$,
 		KoKit,
@@ -14,6 +20,9 @@ var $ = (function(){
 		this.collection = domArray[1] ? Array.prototype.slice.call(domArray) : [domArray];
 	};
 
+	/**
+	* Internal Util object to store some shared functions within KoKit
+	*/
 	Util = {
 		getDomIdentifier: function(el) {
 			var domIdentifier = '',
@@ -35,19 +44,30 @@ var $ = (function(){
 		}
 	};
 
+	/**
+	* KoKit Available functions
+	*/
 	$$.fn = KoKit.prototype = {
-		// $('.boxes').each(function(target, index){console.log('target.id', target.id);console.log('index', index);});
+
+		/**
+		* Loop through each element and return them
+		* Example: $('.boxes').each(function(target, index){console.log('target.id', target.id);console.log('index', index);});
+		*/
 		each : function(fn) {
 			var elems = this.collection,
 				i,
 				l;
 
 			for (i = 0, l = elems.length; i < l; i++) {
-				fn( elems[i], i );
+				fn(elems[i], i);
 			}
 			return this;
 		},
-		// $('.boxes').css({'background':'red', 'color':'#fff'})
+
+		/**
+		* Loop through each element and apply css styles
+		* Example: $('.boxes').css({'background':'red', 'color':'#fff'})
+		*/
 		css : function(styles) {
 			var elems = this.collection,
 				i,
@@ -61,9 +81,14 @@ var $ = (function(){
 			}
 			return this;
 		},
-		// Same as jQuery
+
+		/**
+		* Check if element has a certain class
+		* Fall back to a RegExp if classList is not supported by the browser
+		* Usage same as jQuery
+		* Reference: http://jaketrent.com/post/addremove-classes-raw-javascript/
+		*/
 		hasClass : function(className) {
-			// http://jaketrent.com/post/addremove-classes-raw-javascript/
 			var elems = this.collection,
 				i,
 				elem;
@@ -78,14 +103,19 @@ var $ = (function(){
 				}
 			}
 		},
-		// Same as jQuery
+
+		/**
+		* Adding a class to an element by class or id
+		* Fall back manually manipulate classname via strings
+		* Usage same as jQuery
+		* Reference: http://jaketrent.com/post/addremove-classes-raw-javascript/
+		*/
 		addClass : function(classNames) {
-			// http://jaketrent.com/post/addremove-classes-raw-javascript/
 			var elems = this.collection,
 				that = this,
 				i,
-				classNamesArray,
 				j,
+				classNamesArray,
 				target,
 				el;
 
@@ -94,15 +124,13 @@ var $ = (function(){
 				el = this.collection.length > 1 ? elems[i] : elems[i][0];
 				// Check if classList is available
 				if (el.classList) {
-
 					// Create an array of classList
 					classNamesArray = classNames.split(' ');
 					// For each class, add it via classList
 					for (j = 0; j < classNamesArray.length; j++) {
 						el.classList.add(classNamesArray[j]);
 					}
-
-					// If doesn't support classList, just append as string
+				// If doesn't support classList, just append as string
 				} else {
 					target = $(Util.getDomIdentifier(el));
 					if (!that.hasClass.call(target, classNames)) {
@@ -112,9 +140,14 @@ var $ = (function(){
 			}
 			return this;
 		},
-		// Same as jQuery
+
+		/**
+		* Removing a class to an element by class or id
+		* Fall back manually manipulate classname via RegExp
+		* Usage same as jQuery
+		* Reference: http://jaketrent.com/post/addremove-classes-raw-javascript/
+		*/
 		removeClass: function(classNames) {
-			// http://jaketrent.com/post/addremove-classes-raw-javascript/
 			var elems = this.collection,
 				that = this,
 				i,
@@ -148,6 +181,11 @@ var $ = (function(){
 			}
 			return this;
 		},
+
+		/**
+		* Vertically scroll specified element(s) to a value
+		* Example: $('body').verticalScrollTop(200);
+		*/
 		verticalScrollTo: function(yScrollValue) {
 			var elems = this.collection,
 				i,
@@ -161,7 +199,11 @@ var $ = (function(){
 				}
 			}
 		},
-		// Same as jQuery
+
+		/**
+		* Replace specified element(s) inner HTML
+		* Example: $('#box1').html('Hello World!');
+		*/
 		html: function(content) {
 			var elems = this.collection,
 				i,
@@ -169,14 +211,17 @@ var $ = (function(){
 
 			for (i = 0; i < elemsCount; i++) {
 				if (elemsCount === 1) {
-					console.log('test', elems[i]);
 					elems[i][0].innerHTML = content;
 				} else if (elemsCount > 1) {
 					elems[i].innerHTML = content;
 				}
 			}
 		},
-		// Same as jQuery
+
+		/**
+		* Hide specified element(s) by setting display to none
+		* Example: $('#box1').hide();
+		*/
 		hide: function() {
 			var elems = this.collection,
 				i,
@@ -190,7 +235,11 @@ var $ = (function(){
 				}
 			}
 		},
-		// Same as jQuery
+
+		/**
+		* Show specified element(s) by setting display to block
+		* Example: $('#box1').show();
+		*/
 		show: function() {
 			var elems = this.collection,
 				i,
