@@ -127,7 +127,6 @@ var $ = (function(){
 			// Loop thru each DOM elements
 			for (i = 0; i < elems.length; i++) {
 				el = this.collection.length > 1 ? elems[i] : elems[i][0];
-				console.log('current collection', this.collection);
 				// Check if classList is available
 				if (el.classList) {
 					// Create an array of classList
