@@ -3,7 +3,6 @@
 /**
 * KoKit
 * Trying to imitate some jQuery goodies so I don't need to use jQuery
-* Pure for fun and practice
 * @author ryan.ko@akqa.com
 */
 var $ = (function(){
@@ -53,7 +52,7 @@ var $ = (function(){
 		* Loop through each element and return them
 		* Example: $('.boxes').each(function(target, index){console.log('target.id', target.id);console.log('index', index);});
 		*/
-		each : function(fn) {
+		each: function(fn) {
 			var elems = this.collection,
 				i,
 				l;
@@ -68,17 +67,24 @@ var $ = (function(){
 		* Loop through each element and apply css styles
 		* Example: $('.boxes').css({'background':'red', 'color':'#fff'})
 		*/
-		css : function(styles) {
+		css: function(styles) {
 			var elems = this.collection,
 				i,
 				l,
 				prop;
 
-			for (i = 0, l = elems.length; i < l; i++) {
+			if (elems.length > 1) {
+				for (i = 0, l = elems.length; i < l; i++) {
+					for (prop in styles) {
+						elems[i].style[prop] = styles[prop];
+					}
+				}
+			} else {
 				for (prop in styles) {
-					elems[i].style[prop] = styles[prop];
+					elems[0][0].style[prop] = styles[prop];
 				}
 			}
+
 			return this;
 		},
 
@@ -88,7 +94,7 @@ var $ = (function(){
 		* Usage same as jQuery
 		* Reference: http://jaketrent.com/post/addremove-classes-raw-javascript/
 		*/
-		hasClass : function(className) {
+		hasClass: function(className) {
 			var elems = this.collection,
 				i,
 				elem;
@@ -97,7 +103,6 @@ var $ = (function(){
 				elem = this.collection.length > 1 ? elems[i] : elems[i][0];
 				if (elem.classList) {
 					return elem.classList.contains(className);
-					break;
 				} else {
 					return !!elem.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
 				}
@@ -110,7 +115,7 @@ var $ = (function(){
 		* Usage same as jQuery
 		* Reference: http://jaketrent.com/post/addremove-classes-raw-javascript/
 		*/
-		addClass : function(classNames) {
+		addClass: function(classNames) {
 			var elems = this.collection,
 				that = this,
 				i,
@@ -120,8 +125,9 @@ var $ = (function(){
 				el;
 
 			// Loop thru each DOM elements
-			for (i = 0; i < elems.length; i ++) {
+			for (i = 0; i < elems.length; i++) {
 				el = this.collection.length > 1 ? elems[i] : elems[i][0];
+				console.log('current collection', this.collection);
 				// Check if classList is available
 				if (el.classList) {
 					// Create an array of classList
@@ -134,7 +140,7 @@ var $ = (function(){
 				} else {
 					target = $(Util.getDomIdentifier(el));
 					if (!that.hasClass.call(target, classNames)) {
-						el.className += " " + classNames;
+						el.className += ' ' + classNames;
 					}
 				}
 			}
@@ -155,7 +161,8 @@ var $ = (function(){
 				classNamesArray,
 				j,
 				target,
-				reg;
+				reg,
+				className;
 
 			// Loop thru each DOM elements
 			for (i = 0; i < elems.length; i++) {
@@ -198,6 +205,7 @@ var $ = (function(){
 					elems[i].scrollTop = yScrollValue;
 				}
 			}
+			return this;
 		},
 
 		/**
@@ -216,6 +224,7 @@ var $ = (function(){
 					elems[i].innerHTML = content;
 				}
 			}
+			return this;
 		},
 
 		/**
@@ -234,6 +243,7 @@ var $ = (function(){
 					elems[i].style.display = 'none';
 				}
 			}
+			return this;
 		},
 
 		/**
@@ -252,6 +262,7 @@ var $ = (function(){
 					elems[i].style.display = 'block';
 				}
 			}
+			return this;
 		}
 	};
 
