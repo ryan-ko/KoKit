@@ -3,7 +3,7 @@
 /**
 * KoKit
 * Trying to imitate some jQuery goodies so I don't need to use jQuery
-* @author ryan.ko@akqa.com
+* @author rko@ryanko.me
 */
 var $ = (function(){
 	var $$,
